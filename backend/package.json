@@ -1,6 +1,6 @@
 {
   "name": "roomsync-backend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.3",
     "morgan": "^1.10.0",
-    "nanoid": "^5.0.7"
+    "nanoid": "^5.0.7",
+    "node-cron": "^3.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

@@ -8,6 +8,10 @@ import { notFound, errorHandler } from './src/middleware/errorMiddleware.js';
 
 import authRoutes from './src/routes/authRoutes.js';
 import roomRoutes from './src/routes/roomRoutes.js';
+import expenseRoutes from './src/routes/expenseRoutes.js';
+import choreRoutes from './src/routes/choreRoutes.js';
+
+import { startJobs } from './src/jobs/cron.js';
 
 dotenv.config();
 
@@ -17,10 +21,12 @@ const app = express();
 await connectDB();
 
 // --- Middleware ---
-app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || '*',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || '*',
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
@@ -29,6 +35,11 @@ app.get('/api/health', (_req, res) => res.json({ ok: true, name: 'roomsync-api' 
 
 app.use('/api/auth', authRoutes);
 app.use('/api/rooms', roomRoutes);
+app.use('/api/expenses', expenseRoutes);
+app.use('/api/chores', choreRoutes);
+
+// --- Jobs (cron) ---
+startJobs();
 
 // --- Error handling ---
 app.use(notFound);
