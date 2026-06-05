@@ -6,6 +6,8 @@ import morgan from "morgan";
 import { env } from "./config/env.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { roomRouter } from "./routes/room.routes.js";
+import { expenseRouter } from "./routes/expense.routes.js";
+import { choreRouter } from "./routes/chore.routes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 export function createApp() {
@@ -28,6 +30,8 @@ export function createApp() {
 
   app.use("/api/auth", authRouter);
   app.use("/api/rooms", roomRouter);
+  app.use("/api/expenses", expenseRouter);
+  app.use("/api/chores", choreRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
